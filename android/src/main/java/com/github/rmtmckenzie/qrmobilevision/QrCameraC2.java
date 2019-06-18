@@ -15,6 +15,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -23,8 +24,6 @@ import android.view.Surface;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import androidx.annotation.NonNull;
 
 import static android.hardware.camera2.CameraMetadata.CONTROL_AF_MODE_AUTO;
 import static android.hardware.camera2.CameraMetadata.CONTROL_AF_MODE_CONTINUOUS_PICTURE;
