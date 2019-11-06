@@ -15,6 +15,7 @@ import io.flutter.view.TextureRegistry;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class QrMobileVisionPlugin implements MethodCallHandler, QrReaderCallback
 
     @Override
     public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSION) {
+        if (Arrays.asList(permissions).contains(Manifest.permission.CAMERA) && requestCode == REQUEST_PERMISSION) {
             waitingForPermissionResult = false;
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Log.i(TAG, "Permissions request granted.");
@@ -178,11 +179,13 @@ public class QrMobileVisionPlugin implements MethodCallHandler, QrReaderCallback
         Log.w(TAG, "Starting QR Mobile Vision failed", t);
         List<String> stackTraceStrings = stackTraceAsString(t.getStackTrace());
 
-        if (t instanceof QrReader.Exception) {
-            QrReader.Exception qrException = (QrReader.Exception) t;
-            readingInstance.startResult.error("QRREADER_ERROR", qrException.reason().name(), stackTraceStrings);
-        } else {
-            readingInstance.startResult.error("UNKNOWN_ERROR", t.getMessage(), stackTraceStrings);
+        if (readingInstance != null && readingInstance.startResult != null) {
+            if (t instanceof QrReader.Exception) {
+                QrReader.Exception qrException = (QrReader.Exception) t;
+                readingInstance.startResult.error("QRREADER_ERROR", qrException.reason().name(), stackTraceStrings);
+            } else {
+                readingInstance.startResult.error("UNKNOWN_ERROR", t.getMessage(), stackTraceStrings);
+            }
         }
     }
 
