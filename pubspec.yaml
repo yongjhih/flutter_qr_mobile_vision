@@ -6,7 +6,8 @@ homepage: https://github.com/rmtmckenzie/flutter_qr_mobile_vision
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
-  flutter: ">=0.1.4 <2.0.0"
+  flutter: ">=0.10.15 <2.0.0"
+
 
 flutter:
   plugin:
@@ -16,4 +17,8 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  native_device_orientation: ^0.1.0
+  #native_device_orientation: ^0.1.0
+  native_device_orientation:
+    git:
+      url: https://github.com/rmtmckenzie/flutter_native_device_orientation.git
+      ref: 7e52a902a4d10a859a88f8b817719b87192048db
